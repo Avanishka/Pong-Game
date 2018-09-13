@@ -1,3 +1,6 @@
+//Avanish.K.a
+//uNFINISHED
+
 <html>
 <body>
 <canvas> id="gc" width="640" height="480"</canvas>
