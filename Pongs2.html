@@ -1,0 +1,148 @@
+<html>
+ <head>
+  <title>Pong Game</title>
+                <script>
+                       
+var canvas;
+var ctx;
+
+var paddleY = 200;
+var paddleheight=100;
+
+var ballX = 200;
+var ballY = 200;
+var ballspeedX = -7;
+var ballspeedY = -5;
+
+var paddle2Y = 200;
+var paddle2height = 100;
+var player2SpeedY=0;
+
+const framesPerSecond=30;
+var playerScore=0;
+var player2Score=0;
+const max_Score=3;
+var game;
+
+window.onload=function() {
+    canvas=document.getElementById("canva");
+    ctx=canvas.getContext("2d");
+    game = setInterval(function() {
+        window.addEventListener("mousemove", playerMove, true);
+        
+        draw();
+        moveEnemy();
+        moveBall();
+        score();
+        winGame();
+    },1000/framesPerSecond);
+    
+};
+
+
+
+function winWindow() {
+    ctx.fillStyle="white";
+    ctx.fillRect(100,100, canvas.width/2, canvas.height,2);
+}
+function winGame() {
+    if(playerScore == max_Score ||
+    player2Score == max_Score) {
+        clearInterval(game);
+        ctx.fillStyle = "white";
+        ctx.fillRect(100, 100, canvas.width/2, canvas.height/2);
+        
+        if(playerScore == max_Score) {
+            ctx.fillStyle = "black";
+            ctx.font = "20px Arial";
+            ctx.fillText("Player 1 Wins" , 150, 150);
+        }
+        if(player2Score == max_Score) {
+            ctx.fillStyle = "black";
+            ctx.font = "20px Arial";
+            ctx.fillText("Player 2 wins", 150, 150);
+        }
+    }
+}
+function draw() {
+    ctx.fillStyle = "black";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, paddleY, 10, paddleheight);
+    
+    ctx.beginPath();
+    ctx.fillStyle = "white";
+    ctx.arc(ballX, ballY, 10, 0, 2 * Math.PI);
+    ctx.closePath();
+    ctx.fill();
+    
+    ctx.fillStyle = "white";
+    ctx.fillRect(canvas.width-10, paddle2Y, 10, paddle2height);
+}
+function playerMove(evt) {
+    evt.preventDefault();
+    paddleY = evt.clientY-paddleheight/2;
+}
+function moveEnemy() {
+    var player2YCenter = paddle2Y + paddle2height/2;
+    paddle2Y = paddle2Y + player2SpeedY;
+    if(player2YCenter > ballY+35) {
+        player2SpeedY = -6;
+    }
+    if(player2YCenter < ballY-35) {
+        player2SpeedY = 6;
+    }
+}
+function moveBall() {
+    ballX = ballX + ballspeedX;
+    ballY = ballY + ballspeedY;
+    
+    if(ballY > canvas.height) {
+        ballspeedY = -ballspeedY;
+    }
+    if(ballY < 0) {
+        ballspeedY = -ballspeedY;
+    }
+    if(ballX > canvas.width) {
+        if(ballY > paddle2Y &&
+    ballY < paddle2Y + paddle2height) {
+        ballspeedX = -ballspeedX;
+        }
+        else {
+            ballY = 500;
+            ballX = 300;
+            playerScore = playerScore + 1;
+            ballspeedX = -ballspeedX;
+        }
+    }
+    if(ballX < 0) {
+        if(ballY > paddleY &&
+        ballY < paddleY + paddleheight) {
+            ballspeedX = -ballspeedX;
+        }
+        else {
+            ballX = 500;
+            ballY = 300;
+            player2Score = player2Score + 1;
+        }
+    }
+}
+function score() {
+    ctx.fillStyle = "white";
+    ctx.font = "20px Arial";
+    ctx.fillText("Player 1  Score: " + playerScore, 0, 20);
+    
+    ctx.fillStyle = "white";
+    ctx.font = "20px Arial";
+    ctx.fillText("Player 2  Score: " + player2Score, canvas.width-200, 20);
+    
+}
+
+
+                </script>
+ </head>
+ <body>
+  <canvas id="canva" width="1000" height="600"></canvas>
+ </body>
+</html>
