@@ -1,0 +1,36 @@
+Data Analysis Try #6
+
+Pong ananlysis done twice
+Ball speed has turned out to be the same throughout
+Need to include accleration on hitting paddle tips.
+
+USER INTERFACE: Mousemove
+Requirements: Two user interfaces
+
+mousemove is invalid (in this case)
+
+Should move to keybinds.
+
+In the mode of having two interfaces,
+
+enemy paddle is invalid.
+Code should revert control to player2
+
+Interface needed at the beginning of game display to choose between option Mode1 and mode2
+
+Mode 1:
+	User controls paddle 1 while paddle2 is reverted to AI
+Mode 2:
+	Subject of mode is availability of 2 users 
+	user1 controls paddle1
+	user2 controls paddle2
+
+Ball speed and motion remain constant throughout modes.
+//
+
+//
+In case of Mode1
+	Requirement of user interface method:
+	User provided the option to choose either Mouse or keyboard binds.
+
+Day 6 attemps seem promising towards success and updation.
